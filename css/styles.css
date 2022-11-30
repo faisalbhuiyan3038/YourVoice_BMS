@@ -1,0 +1,21 @@
+.navbar a:hover {
+    color: aqua;
+}
+
+.mr-auto {
+    margin-right: auto;
+}
+
+.ml-auto {
+    margin-left: auto;
+}
+
+.FieldInfo {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 1.2em;
+    color: rgb(111, 255, 0);
+}
+
+.commentCountOnBlogCard {
+    color: aqua;
+}
