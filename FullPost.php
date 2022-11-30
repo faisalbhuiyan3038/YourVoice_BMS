@@ -43,11 +43,12 @@ require_once("includes/Sessions.php");
     <div class="container">
         <div class="row">
             <div class="col-sm-11">
-            <h1>See What's trending Below...</h1>
-            <h1 class="lead">Sign Up to Write a Blog</h1>
+            <h1>Here's Your Blog...</h1>
+            <h1 class="lead">Make sure to grab a cup of coffee before you start reading</h1>
             <?php
             global $ConnectingDB;
-            $sql = "SELECT * FROM posts ORDER BY id desc";
+            $PostIdFromURL = $_GET["id"];
+            $sql = "SELECT * FROM posts WHERE id='$PostIdFromURL'";
             $stmt = $ConnectingDB->query($sql);
             while($DataRows = $stmt->fetch()){
                 $PostId = $DataRows["id"];
@@ -65,12 +66,7 @@ require_once("includes/Sessions.php");
                     <small class="text-muted">Written by <?php echo $Admin; ?> On <?php echo $DateTime; ?></small>
                     <div style="float:right;" class="badge bg-primary">Comments 20</div>
                     <hr>
-                    <p class="card-text"><?php if(strlen(strlen($PostDescription)>150)){
-                        $PostDescription = substr($PostDescription,0,150)."..";
-                    } echo $PostDescription ?></p>
-                    <a href="FullPost.php?id=<?php echo $PostId; ?>" style="float:right;">
-                    <span class="btn btn-info">Read More >> </span>
-                    </a>
+                    <p class="card-text"><?php echo $PostDescription ?></p>
                 </div>
                 <?php } ?>
             </div>
