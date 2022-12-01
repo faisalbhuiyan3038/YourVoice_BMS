@@ -78,7 +78,7 @@ require_once("includes/Sessions.php");
                     <a href="Categories.php" class="nav-link">Categories</a>
                 </li>
                 <li class="nav-item">
-                    <a href="Admins.php" class="nav-link">Manage Admins</a>
+                    <a href="RegisterUser.php" class="nav-link">Register User</a>
                 </li>
                 <li class="nav-item">
                     <a href="Comments.php" class="nav-link">Comments</a>
@@ -100,7 +100,7 @@ require_once("includes/Sessions.php");
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h1><i class="fa-solid fa-pen-to-square"></i> Manage Categories</h1>
+                    <h1><i class="fa-solid fa-user-plus"></i> Register User</h1>
                 </div>
             </div>
         </div>
@@ -116,13 +116,23 @@ require_once("includes/Sessions.php");
                 <form class="" action="Categories.php" method="post">
                     <div class="card bg-secondary text-light mb-3">
                         <div class="card-header">
-                            <h1>Add New Category</h1>
+                            <h1>Add New User</h1>
                         </div>
 
                     <div class="card-body bg-dark">
                         <div class="form-group">
-                            <label for="title"><div class="FieldInfo mb-1"> Category Title: </div></label>
-                            <input class="form-control" type="text" name="CategoryTitle" id="title" placeholder="Type Title Here"> 
+                            <label for="title"><div class="FieldInfo mb-1"> Name: </div></label>
+                            <input class="form-control" type="text" name="Name" id="Name" placeholder="Type Name Here"> 
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label for="title"><div class="FieldInfo mb-1"> Password: </div></label>
+                            <input class="form-control" type="password" name="password" id="Password" placeholder="Type Password Here"> 
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label for="title"><div class="FieldInfo mb-1"> Confirm Password: </div></label>
+                            <input class="form-control" type="password" name="ConfirmPassword" id="ConfirmPassword" placeholder="Type Password Here Again"> 
                         </div>
                         <br>
                         <div class="row">

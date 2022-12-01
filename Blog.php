@@ -28,6 +28,12 @@ require_once("includes/Sessions.php");
                     <a href="Blog.php" class="nav-link">Home</a>
                 </li>
                 <li class="nav-item">
+                    <a href="RegisterUser.php" class="nav-link">Register User</a>
+                </li>
+                <li class="nav-item">
+                    <a href="LoginUser.php" class="nav-link">Login</a>
+                </li>
+                <li class="nav-item">
                     <a href="ContactUs.php" class="nav-link">Contact Us</a>
                 </li>
             </ul>
