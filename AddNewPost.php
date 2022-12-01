@@ -89,7 +89,7 @@ require_once("includes/Sessions.php");
                     <a href="Comments.php" class="nav-link">Comments</a>
                 </li>
                 <li class="nav-item">
-                    <a href="Blog.php?page=1" class="nav-link">Live Blog</a>
+                    <a href="Blog.php?page=1" class="nav-link">Read All Blogs</a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">

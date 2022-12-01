@@ -2,7 +2,26 @@
 require_once("includes/DB.php");
 require_once("includes/Functions.php");
 require_once("includes/Sessions.php");
+
+$SearchQueryParameter = $_GET['id'];
+    if(isset($_POST["Submit"])){
+                global $ConnectingDB;
+                $sql = "DELETE FROM posts WHERE id='$SearchQueryParameter'";
+                $Execute=$ConnectingDB->query($sql);
+
+                if($Execute){
+                    $_SESSION["SuccessMessage"] = "Post Deleted Successfully";
+                    Redirect_to("Posts.php");
+                }
+                else{
+                    $_SESSION["ErrorMessage"] = "Something went wrong, Try again!";
+                    Redirect_to("Posts.php");
+                }
+            
+    }
+
 ?>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,7 +31,7 @@ require_once("includes/Sessions.php");
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link href="css/styles.css" rel="stylesheet">
-    <title>Posts</title>
+    <title>Delete Post</title>
 </head>
 <body>
 
@@ -54,86 +73,69 @@ require_once("includes/Sessions.php");
             </div>
         </div>
     </nav>
-    
+
     <header class="bg-dark text-white py-3">
         <div class="container">
             <div class="row">
-                <div class="col-md-12 mb-1">
-                    <h1><i class="fa-brands fa-blogger-b"></i> Blog Posts</h1>
-                </div>
-                <div class="col-lg-3">
-                    <a href="AddNewPost.php" class="btn btn-primary mb-1">
-                    <i class="fa-solid fa-pen-to-square"></i> Add New Post
-                    </a>
-                </div>
-                <div class="col-lg-3">
-                    <a href="Categories.php" class="btn btn-info mb-1">
-                    <i class="fa-solid fa-folder-plus"></i> Add New Category
-                    </a>
-                </div>
-                <div class="col-lg-3">
-                    <a href="Admins.php" class="btn btn-warning mb-1">
-                    <i class="fa-solid fa-user-plus"></i> Add New Admin
-                    </a>
-                </div>
-                <div class="col-lg-3">
-                    <a href="Comments.php" class="btn btn-success mb-1">
-                    <i class="fa-solid fa-check"></i> Approve Comments
-                    </a>
+                <div class="col-md-12">
+                    <h1><i class="fa-solid fa-pen-to-square"></i> Delete Post</h1>
                 </div>
             </div>
         </div>
     </header>
-    
+
     <section class="container py-2 mb-4">
         <div class="row">
-        <?php echo ErrorMessage(); echo SuccessMessage(); ?>
-            <div class="col-lg-12">
-                <table class="table table-striped table-hover">
-                    <thead class="table-dark">
-                    <tr>
-                        <th>#</th>
-                        <th>Title</th>
-                        <th>Category</th>
-                        <th>Date&Time</th>
-                        <th>Author</th>
-                        <th>Comments</th>
-                        <th>Action</th>
-                        <th>Live Preview</th>
-                    </tr>
-                    </thead>
-                    <?php
-                    global $ConnectingDB;
-                    $sql = "SELECT * FROM posts";
-                    $stmt = $ConnectingDB->query($sql);
-                    $SerialNumber = 0;
-                    while ($DataRows = $stmt->fetch()){
-                        $Id = $DataRows["id"];
-                        $DateTime = $DataRows["datetime"];
-                        $PostTitle = $DataRows["title"];
-                        $Category = $DataRows["category"];
-                        $Admin = $DataRows["author"];
-                        $PostText = $DataRows["post"];
-                        $SerialNumber++;
-                    ?>
-                    <tbody>
-                    <tr>
-                        <td><?php echo $SerialNumber ?></td>
-                        <td><?php if(strlen($PostTitle)>20){
-                            $PostTitle = substr($PostTitle,0,18)."..";
-                        }
-                        echo $PostTitle; ?></td>
-                        <td><?php echo $Category; ?></td>
-                        <td><?php echo $DateTime; ?></td>
-                        <td><?php echo $Admin; ?></td>
-                        <td>Comments</td>
-                        <td><a href="DeletePost.php?id=<?php echo $Id; ?>"><span class="btn btn-danger btn-sm">Delete</span></a></td>
-                        <td><a href="FullPost.php?id=<?php echo $Id ?>" target="_blank"><span class="btn btn-primary btn-sm">Go To Post</span></a></td>
-                    </tr>
-                    </tbody>
-                    <?php } ?>
-                </table>
+            <div class="offset-lg-1 col-lg-10" style="min-height:400px;">
+            <?php
+            echo ErrorMessage();
+            echo SuccessMessage();
+
+            global $ConnectingDB;
+            $SearchQueryParameter = $_GET["id"];
+            $sql = "SELECT * FROM posts WHERE id='$SearchQueryParameter'";
+            $stmt = $ConnectingDB->query($sql);
+            while($DataRows=$stmt->fetch()){
+                $TitleToBeDeleted = $DataRows['title'];
+                $CategoryToBeDeleted = $DataRows['category'];
+                $PostToBeDeleted = $DataRows['post'];
+            }
+            ?>
+                <form class="" action="DeletePost.php?id=<?php echo $SearchQueryParameter; ?>" method="post">
+                    <div class="card bg-secondary text-light mb-3">
+                        
+
+                    <div class="card-body bg-dark">
+                        <div class="form-group">
+                            <label for="title"><div class="FieldInfo mb-1"> Post Title: </div></label>
+                            <input disabled class="form-control" type="text" name="PostTitle" id="title" value="<?php echo $TitleToBeDeleted; ?>" placeholder="Type Title Here"> 
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label for="CategoryTitle"><div class="FieldInfo mb-1"> Category: </div></label>
+                            <input disabled class="form-control" type="text" id="CategoryTitle" value="<?php echo $CategoryToBeDeleted; ?>" name="Category"></input>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label for="Post"><div class="FieldInfo mb-1"> Post: </div></label>
+                            <textarea disabled class="form-control" id="Post" name="PostDescription" rows="8" cols="80"><?php echo $PostToBeDeleted; ?></textarea>
+                        </div>
+                        <br>
+                        <div class="row">
+                        <div class="col-lg-6 mb-2">
+                            <a href="Dashboard.php" class="btn btn-warning w-100"><i class="fa-solid fa-arrow-left"></i> Back To Dashboard</a>
+                        </div>
+                        <div class="col-lg-6">
+                            <button type="submit" name="Submit" class="btn btn-danger w-100"><i class="fa-solid fa-trash"></i> Delete</button>
+                        </div>
+                        </div>
+
+                    </div>
+                    </div>
+
+                </form>
             </div>
+
         </div>
     </section>
     
