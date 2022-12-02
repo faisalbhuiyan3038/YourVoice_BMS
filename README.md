@@ -1,3 +1,4 @@
+#BMS (Blog Management System)
 This is a Blog Management System written in HTML, CSS, PHP and JavaScript with the help of Bootstrap.
 
 Steps to Use:
