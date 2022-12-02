@@ -1,4 +1,4 @@
-#BMS (Blog Management System)
+<h1> h1 heading</h1>
 This is a Blog Management System written in HTML, CSS, PHP and JavaScript with the help of Bootstrap.
 
 Steps to Use:
