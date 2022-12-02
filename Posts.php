@@ -31,10 +31,16 @@ require_once("includes/Sessions.php");
                     <a href="Dashboard.php" class="nav-link">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a href="Posts.php" class="nav-link">Posts</a>
+                    <a href="Posts.php" class="nav-link">Manage Posts</a>
                 </li>
                 <li class="nav-item">
                     <a href="Comments.php" class="nav-link">Comments</a>
+                </li>
+                <li class="nav-item">
+                    <a href="ContactMessages.php" class="nav-link">Messages</a>
+                </li>
+                <li class="nav-item">
+                    <a href="ManageUsers.php" class="nav-link">Manage Users</a>
                 </li>
                 <li class="nav-item">
                     <a href="Blog.php?page=1" class="nav-link">Read All Blogs</a>

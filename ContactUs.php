@@ -4,40 +4,41 @@ require_once("includes/Functions.php");
 require_once("includes/Sessions.php");
 
     if(isset($_POST["Submit"])){
-        $Category = $_POST["CategoryTitle"];
-        $Admin = "Faisal";
-        date_default_timezone_set("Asia/Dhaka");
-        $CurrentTime = time();
-        $DateTime = strftime("%Y-%m-%d %H:%M:%S",$CurrentTime);
+        $Name = $_POST["FullName"];
+        $Number = $_POST["PhoneNumber"];
+        $Message = nl2br($_POST["Message"],true);
+        $Email = $_POST["Email"];
 
-            if(empty($Category)){
-                $_SESSION["ErrorMessage"]= "All fields must be filled out";
-                Redirect_to("Categories.php");
+            if(empty($Name) || empty($Number) || empty($Message) || empty($Email)){
+                $_SESSION["ErrorMessage"]= "Pleas Fill Out All Fields!";
+                Redirect_to("ContactUs.php");
             }
-            elseif(strlen($Category)<3){
-                $_SESSION["ErrorMessage"]= "Category Title Should Be Greater Than 2 Characters";
-                Redirect_to("Categories.php");
+            elseif((strlen($Number)!=11)){
+                $_SESSION["ErrorMessage"]= "Phone Number should be 11 characters only!";
+                Redirect_to("ContactUs.php");
             }
-            elseif(strlen($Category)>49){
-                $_SESSION["ErrorMessage"]= "Category Title Should Be Less Than 50 Characters";
-                Redirect_to("Categories.php");
+            elseif(strlen($Message)>999){
+                $_SESSION["ErrorMessage"]= "Message Should Be Less Than 1000 Characters";
+                Redirect_to("ContactUs.php");
             }
             else{
-                $sql = "INSERT INTO category(title,author,datetime)";
-                $sql .= "VALUES(:categoryName,:adminName,:dateTime)";
+                $sql = "INSERT INTO contactus(name,number,email,message)";
+                $sql .= "VALUES(:namE,:numbeR,:emaiL,:messagE)";
                 $stmt = $ConnectingDB->prepare($sql);
-                $stmt->bindValue(':categoryName',$Category);
-                $stmt->bindValue(':adminName',$Admin);
-                $stmt->bindValue(':dateTime',$DateTime);
+                $stmt->bindValue(':namE',$Name);
+                $stmt->bindValue(':numbeR',$Number);
+                $stmt->bindValue(':emaiL',$Email);
+                $stmt->bindValue(':messagE',$Message);
+                
                 $Execute=$stmt->execute();
 
                 if($Execute){
-                    $_SESSION["SuccessMessage"] = "Category Added Successfully";
-                    Redirect_to("Categories.php");
+                    $_SESSION["SuccessMessage"] = "Message Sent Successfully";
+                    Redirect_to("ContactUs.php");
                 }
                 else{
                     $_SESSION["ErrorMessage"] = "Something went wrong, Try again!";
-                    Redirect_to("Categories.php");
+                    Redirect_to("ContactUs.php");
                 }
             }
     }
@@ -53,11 +54,11 @@ require_once("includes/Sessions.php");
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link href="css/styles.css" rel="stylesheet">
-    <title>Register User Page</title>
+    <title>Contact Us</title>
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <a href="#" class="navbar-brand">YOURVOICE.COM</a>
             <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarcollapseBMS">
@@ -66,25 +67,16 @@ require_once("includes/Sessions.php");
             <div class="collapse navbar-collapse" id="navbarcollapseBMS">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a href="MyProfile.php" class="nav-link"><i class="fa-solid fa-user text-success"></i> My Profile</a>
-                </li>
-                <li class="nav-item">
-                    <a href="Dashboard.php" class="nav-link">Dashboard</a>
-                </li>
-                <li class="nav-item">
-                    <a href="Posts.php" class="nav-link">Posts</a>
-                </li>
-                <li class="nav-item">
-                    <a href="Categories.php" class="nav-link">Categories</a>
+                    <a href="Blog.php" class="nav-link">Home</a>
                 </li>
                 <li class="nav-item">
                     <a href="RegisterUser.php" class="nav-link">Register User</a>
                 </li>
                 <li class="nav-item">
-                    <a href="Comments.php" class="nav-link">Comments</a>
+                    <a href="LoginUser.php" class="nav-link">Login</a>
                 </li>
                 <li class="nav-item">
-                    <a href="Blog.php?page=1" class="nav-link">Read All Blogs</a>
+                    <a href="ContactUs.php" class="nav-link">Contact Us</a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
@@ -100,7 +92,7 @@ require_once("includes/Sessions.php");
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h1><i class="fa-solid fa-user-plus"></i> Register User</h1>
+                    <h1><i class="fa-solid fa-envelope"></i> Contact Us</h1>
                 </div>
             </div>
         </div>
@@ -113,26 +105,29 @@ require_once("includes/Sessions.php");
             echo ErrorMessage();
             echo SuccessMessage();
             ?>
-                <form class="" action="RegisterUser.php" method="post">
+                <form class="" action="ContactUs.php" method="post">
                     <div class="card bg-secondary text-light mb-3">
-                        <div class="card-header">
-                            <h1>Add New User</h1>
-                        </div>
+                        
 
                     <div class="card-body bg-dark">
                         <div class="form-group">
-                            <label for="title"><div class="FieldInfo mb-1"> Name: </div></label>
-                            <input class="form-control" type="text" name="Name" id="Name" placeholder="Type Name Here"> 
+                            <label for="name"><div class="FieldInfo mb-1"> Full Name: </div></label>
+                            <input class="form-control" type="text" name="FullName" id="name" placeholder="Type Name Here"> 
                         </div>
                         <br>
                         <div class="form-group">
-                            <label for="title"><div class="FieldInfo mb-1"> Password: </div></label>
-                            <input class="form-control" type="password" name="password" id="Password" placeholder="Type Password Here"> 
+                            <label for="number"><div class="FieldInfo mb-1"> Phone Number: </div></label>
+                            <input class="form-control" type="text" name="PhoneNumber" id="number" placeholder="Type Number Here"> 
                         </div>
                         <br>
                         <div class="form-group">
-                            <label for="title"><div class="FieldInfo mb-1"> Confirm Password: </div></label>
-                            <input class="form-control" type="password" name="ConfirmPassword" id="ConfirmPassword" placeholder="Type Password Here Again"> 
+                            <label for="email"><div class="FieldInfo mb-1"> Email: </div></label>
+                            <input class="form-control" type="email" name="Email" id="email" placeholder="Type Email Here"> 
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label for="message"><div class="FieldInfo mb-1"> Message: </div></label>
+                            <textarea class="form-control" id="message" name="Message" rows="8" cols="80"></textarea>
                         </div>
                         <br>
                         <div class="row">
@@ -140,7 +135,7 @@ require_once("includes/Sessions.php");
                             <a href="Dashboard.php" class="btn btn-warning w-100"><i class="fa-solid fa-arrow-left"></i> Back To Dashboard</a>
                         </div>
                         <div class="col-lg-6">
-                            <button type="submit" name="Submit" class="btn btn-success w-100"><i class="fa-solid fa-check"></i> Publish</button>
+                            <button type="submit" name="Submit" class="btn btn-success w-100"><i class="fa-solid fa-check"></i> Send Message</button>
                         </div>
                         </div>
 
