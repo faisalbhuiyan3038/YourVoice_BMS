@@ -6,8 +6,8 @@ require_once("includes/Sessions.php");
     if(isset($_POST["Submit"])){
         $PostTitle = $_POST["PostTitle"];
         $Category = $_POST["Category"];
-        $PostText = $_POST["PostDescription"];
-        $Admin = "Faisal";
+        $PostText = nl2br($_POST["PostDescription"],true);
+        $Admin = $_POST["PostAuthor"];
         date_default_timezone_set("Asia/Dhaka");
         $CurrentTime = time();
         $DateTime = strftime("%Y-%m-%d %H:%M:%S",$CurrentTime);
@@ -20,8 +20,8 @@ require_once("includes/Sessions.php");
                 $_SESSION["ErrorMessage"]= "Post Title Should Be Greater Than 5 Characters";
                 Redirect_to("AddNewPost.php");
             }
-            elseif(strlen($PostText)>999){
-                $_SESSION["ErrorMessage"]= "Post Description Should Be Less Than 1000 Characters";
+            elseif(strlen($PostText)>4999){
+                $_SESSION["ErrorMessage"]= "Post Description Should Be Less Than 5000 Characters";
                 Redirect_to("AddNewPost.php");
             }
             else{
@@ -58,11 +58,11 @@ require_once("includes/Sessions.php");
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link href="css/styles.css" rel="stylesheet">
-    <title>Categories</title>
+    <title>Add New Post</title>
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <a href="#" class="navbar-brand">YOURVOICE.COM</a>
             <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarcollapseBMS">
@@ -78,12 +78,6 @@ require_once("includes/Sessions.php");
                 </li>
                 <li class="nav-item">
                     <a href="Posts.php" class="nav-link">Posts</a>
-                </li>
-                <li class="nav-item">
-                    <a href="Categories.php" class="nav-link">Categories</a>
-                </li>
-                <li class="nav-item">
-                    <a href="Admins.php" class="nav-link">Manage Admins</a>
                 </li>
                 <li class="nav-item">
                     <a href="Comments.php" class="nav-link">Comments</a>
@@ -142,6 +136,11 @@ require_once("includes/Sessions.php");
                                 <option><?php echo $CategoryName; ?></option>
                                 <?php } ?>
                             </select>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label for="title"><div class="FieldInfo mb-1"> Author Name: </div></label>
+                            <input class="form-control" type="text" name="PostAuthor" id="PostAuthor" placeholder="Type Author Name Here"> 
                         </div>
                         <br>
                         <div class="form-group">

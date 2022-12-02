@@ -44,8 +44,7 @@ $SearchQueryParameter = $_GET["id"];
     <div class="container">
         <div class="row">
             <div class="col-sm-11">
-            <h1>Here's Your Blog...</h1>
-            <h1 class="lead">Make sure to grab a cup of coffee before you start reading</h1>
+            
             <?php
             global $ConnectingDB;
             $PostIdFromURL = $_GET["id"];

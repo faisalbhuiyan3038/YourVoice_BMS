@@ -57,7 +57,7 @@ require_once("includes/Sessions.php");
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <a href="#" class="navbar-brand">YOURVOICE.COM</a>
             <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarcollapseBMS">
@@ -73,12 +73,6 @@ require_once("includes/Sessions.php");
                 </li>
                 <li class="nav-item">
                     <a href="Posts.php" class="nav-link">Posts</a>
-                </li>
-                <li class="nav-item">
-                    <a href="Categories.php" class="nav-link">Categories</a>
-                </li>
-                <li class="nav-item">
-                    <a href="Admins.php" class="nav-link">Manage Admins</a>
                 </li>
                 <li class="nav-item">
                     <a href="Comments.php" class="nav-link">Comments</a>
