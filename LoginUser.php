@@ -1,3 +1,38 @@
+<?php
+require_once("includes/DB.php");
+require_once("includes/Functions.php");
+require_once("includes/Sessions.php");
+
+    if (isset($_POST['Submit']))
+    {
+    $Name = $_POST['name'];
+    $Password = $_POST['password'];
+
+        if(empty($Name) || empty($Password)){
+            $_SESSION["ErrorMessage"] = "Please Fill Out All Fields!";
+            Redirect_to("LoginUser.php");
+        }
+        else {
+            global $ConnectingDB;
+            $sql = "SELECT * FROM users WHERE name=:NamE AND password=:passworD";
+            $stmt = $ConnectingDB->prepare($sql);
+            $stmt->bindValue(":NamE", $Name);
+            $stmt->bindValue(":passworD", $Password);
+        $stmt->execute();
+            $Result = $stmt->rowCount();
+            if($Result==1){
+                $_SESSION["SuccessMessage"] = "Welcome " . "$Name"." "."! You are Logged In..";
+                Redirect_to("LoginUser.php");
+            }
+            else{
+                $_SESSION["ErrorMessage"] = "User Not Found. Please Try Again.";
+                Redirect_to("LoginUser.php");
+            }
+        }
+}
+
+?>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -37,7 +72,10 @@
             <div class="offset-sm-3 col-sm-6" style="min-height:400px">
                 <div class="card bg-secondary text-light">
                     <div class="card-header">
-                        
+                        <?php
+                        echo ErrorMessage();
+                        echo SuccessMessage();
+                        ?>
                         <h4>Welcome Back!</h4>
                         </div>
                         <div class="card-body bg-dark">
@@ -46,15 +84,13 @@
                             <div class="form-group">
                                 <label for="Name"><span class="FieldInfo">Name:</span></label>
                                 <div class="input-group mb-3">
-                                    <input class="form-control" type="text" name="Name" id="Name" value="">
+                                    <input class="form-control" type="text" name="name" id="Name">
                                 </div>
                             </div>
-                        </form>
-                        <form class="" action="LoginUser.php" method="post">
                             <div class="form-group">
                                 <label for="Password"><span class="FieldInfo">Password:</span></label>
                                 <div class="input-group mb-3">
-                                    <input class="form-control" type="password" name="Password" id="Password" value="">
+                                    <input class="form-control" type="password" name="password" id="Password">
                                 </div>
                             </div>
                             <input type="submit" name="Submit" class="btn btn-info w-100" value="Login">

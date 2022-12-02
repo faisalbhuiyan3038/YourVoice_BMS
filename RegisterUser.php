@@ -4,40 +4,33 @@ require_once("includes/Functions.php");
 require_once("includes/Sessions.php");
 
     if(isset($_POST["Submit"])){
-        $Category = $_POST["CategoryTitle"];
-        $Admin = "Faisal";
-        date_default_timezone_set("Asia/Dhaka");
-        $CurrentTime = time();
-        $DateTime = strftime("%Y-%m-%d %H:%M:%S",$CurrentTime);
+        $Name = $_POST["Name"];
+        $Password = $_POST["Password"];
+        $ConfirmPassword = $_POST["ConfirmPassword"];
 
-            if(empty($Category)){
-                $_SESSION["ErrorMessage"]= "All fields must be filled out";
-                Redirect_to("Categories.php");
+            if($Password!=$ConfirmPassword){
+                $_SESSION["ErrorMessage"]= "Passwords do not match!";
+                Redirect_to("RegisterUser.php");
             }
-            elseif(strlen($Category)<3){
-                $_SESSION["ErrorMessage"]= "Category Title Should Be Greater Than 2 Characters";
-                Redirect_to("Categories.php");
-            }
-            elseif(strlen($Category)>49){
-                $_SESSION["ErrorMessage"]= "Category Title Should Be Less Than 50 Characters";
-                Redirect_to("Categories.php");
+            elseif(empty($Password) || empty($Name) || empty($ConfirmPassword)){
+                $_SESSION["ErrorMessage"]= "Please Fill Out All Fields";
+                Redirect_to("RegisterUser.php");
             }
             else{
-                $sql = "INSERT INTO category(title,author,datetime)";
-                $sql .= "VALUES(:categoryName,:adminName,:dateTime)";
+                $sql = "INSERT INTO users(name,password)";
+                $sql .= "VALUES(:Name,:Password)";
                 $stmt = $ConnectingDB->prepare($sql);
-                $stmt->bindValue(':categoryName',$Category);
-                $stmt->bindValue(':adminName',$Admin);
-                $stmt->bindValue(':dateTime',$DateTime);
+                $stmt->bindValue(':Name',$Name);
+                $stmt->bindValue(':Password',$Password);
                 $Execute=$stmt->execute();
 
                 if($Execute){
-                    $_SESSION["SuccessMessage"] = "Category Added Successfully";
-                    Redirect_to("Categories.php");
+                    $_SESSION["SuccessMessage"] = "User Registered Successfully";
+                    Redirect_to("RegisterUser.php");
                 }
                 else{
                     $_SESSION["ErrorMessage"] = "Something went wrong, Try again!";
-                    Redirect_to("Categories.php");
+                    Redirect_to("RegisterUser.php");
                 }
             }
     }
@@ -57,7 +50,7 @@ require_once("includes/Sessions.php");
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <a href="#" class="navbar-brand">YOURVOICE.COM</a>
             <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarcollapseBMS">
@@ -66,25 +59,16 @@ require_once("includes/Sessions.php");
             <div class="collapse navbar-collapse" id="navbarcollapseBMS">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a href="MyProfile.php" class="nav-link"><i class="fa-solid fa-user text-success"></i> My Profile</a>
-                </li>
-                <li class="nav-item">
-                    <a href="Dashboard.php" class="nav-link">Dashboard</a>
-                </li>
-                <li class="nav-item">
-                    <a href="Posts.php" class="nav-link">Posts</a>
-                </li>
-                <li class="nav-item">
-                    <a href="Categories.php" class="nav-link">Categories</a>
+                    <a href="Blog.php" class="nav-link">Home</a>
                 </li>
                 <li class="nav-item">
                     <a href="RegisterUser.php" class="nav-link">Register User</a>
                 </li>
                 <li class="nav-item">
-                    <a href="Comments.php" class="nav-link">Comments</a>
+                    <a href="LoginUser.php" class="nav-link">Login</a>
                 </li>
                 <li class="nav-item">
-                    <a href="Blog.php?page=1" class="nav-link">Read All Blogs</a>
+                    <a href="ContactUs.php" class="nav-link">Contact Us</a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
@@ -127,7 +111,7 @@ require_once("includes/Sessions.php");
                         <br>
                         <div class="form-group">
                             <label for="title"><div class="FieldInfo mb-1"> Password: </div></label>
-                            <input class="form-control" type="password" name="password" id="Password" placeholder="Type Password Here"> 
+                            <input class="form-control" type="password" name="Password" id="Password" placeholder="Type Password Here"> 
                         </div>
                         <br>
                         <div class="form-group">
@@ -140,7 +124,7 @@ require_once("includes/Sessions.php");
                             <a href="Dashboard.php" class="btn btn-warning w-100"><i class="fa-solid fa-arrow-left"></i> Back To Dashboard</a>
                         </div>
                         <div class="col-lg-6">
-                            <button type="submit" name="Submit" class="btn btn-success w-100"><i class="fa-solid fa-check"></i> Publish</button>
+                            <button type="submit" name="Submit" class="btn btn-success w-100"><i class="fa-solid fa-check"></i> Register</button>
                         </div>
                         </div>
 
