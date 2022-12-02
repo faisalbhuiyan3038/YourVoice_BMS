@@ -2,6 +2,14 @@
 require_once("includes/DB.php");
 require_once("includes/Functions.php");
 require_once("includes/Sessions.php");
+if($_SESSION['UserID']==null){
+    $_SESSION["ErrorMessage"] = "You are not logged in!";
+    Redirect_to("LoginUser.php");
+}
+else if($_SESSION['UserID']!=1){
+    $_SESSION["ErrorMessage"] = "You are not allowed to access this page..";
+    Redirect_to("Blog.php");
+}
 ?>
 <html lang="en">
 <head>
@@ -12,11 +20,11 @@ require_once("includes/Sessions.php");
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link href="css/styles.css" rel="stylesheet">
-    <title>Blog Page</title>
+    <title>Messages</title>
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <a href="#" class="navbar-brand">YOURVOICE.COM</a>
             <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarcollapseBMS">
@@ -48,9 +56,6 @@ require_once("includes/Sessions.php");
                 <li class="nav-item">
                     <a href="ContactUs.php" class="nav-link">Contact Us</a>
                 </li>
-                <li class="nav-item">
-                    <a href="AddNewPost.php" class="nav-link">New Post</a>
-                </li>
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
@@ -60,46 +65,60 @@ require_once("includes/Sessions.php");
             </div>
         </div>
     </nav>
-    <br>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-11">
-            <h1>See What's trending Below...</h1>
-            <h1 class="lead">Sign Up to Write a Blog</h1>
-            <br>
-            <?php echo ErrorMessage(); echo SuccessMessage() ?>
-            <?php
-            global $ConnectingDB;
-            $sql = "SELECT * FROM posts ORDER BY id desc";
-            $stmt = $ConnectingDB->query($sql);
-            while($DataRows = $stmt->fetch()){
-                $PostId = $DataRows["id"];
-                $DateTime = $DataRows["datetime"];
-                $PostTitle = $DataRows["title"];
-                $Category = $DataRows["category"];
-                $Admin = $DataRows["author"];
-                $PostDescription = $DataRows["post"];
-            ?>
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">
-                        <?php echo $PostTitle; ?></h4>
-                    </h4>
-                    <small class="text-muted">Written by <?php echo $Admin; ?> On <?php echo $DateTime; ?></small>
-                    <div style="float:right;" class="badge bg-primary">Comments 20</div>
-                    <hr>
-                    <p class="card-text"><?php if(strlen(strlen($PostDescription)>150)){
-                        $PostDescription = substr($PostDescription,0,150)."..";
-                    } echo $PostDescription ?></p>
-                    <a href="FullPost.php?id=<?php echo $PostId; ?>" style="float:right;">
-                    <span class="btn btn-info">Read More >> </span>
-                    </a>
+    
+    <header class="bg-dark text-white py-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 mb-1">
+                    <h1><i class="fa-solid fa-envelope"></i> Messages</h1>
                 </div>
-                <?php } ?>
-            </div>
             </div>
         </div>
-    </div>
+    </header>
+    
+    <section class="container py-2 mb-4" style="min-height:60% ;">
+        <div class="row">
+        <?php echo ErrorMessage(); echo SuccessMessage(); ?>
+            <div class="col-lg-12">
+                <table class="table table-striped table-hover">
+                    <thead class="table-dark">
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Number</th>
+                        <th>Email</th>
+                        <th>Message</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <?php
+                    global $ConnectingDB;
+                    $sql = "SELECT * FROM contactus";
+                    $stmt = $ConnectingDB->query($sql);
+                    $SerialNumber = 0;
+                    while ($DataRows = $stmt->fetch()){
+                        $Id = $DataRows['id'];
+                        $Name = $DataRows['name'];
+                        $Number = $DataRows["number"];
+                        $Email = $DataRows["email"];
+                        $Message = $DataRows["message"];
+                        $SerialNumber++;
+                    ?>
+                    <tbody>
+                    <tr>
+                        <td><?php echo $SerialNumber; ?></td>
+                        <td><?php echo $Name; ?></td>
+                        <td><?php echo $Number; ?></td>
+                        <td><?php echo $Email; ?></td>
+                        <td><?php echo $Message; ?></td>
+                        <td><a href="DeleteMessage.php?id=<?php echo $Id; ?>"><span class="btn btn-danger btn-sm">Delete</span></a></td>
+                    </tr>
+                    </tbody>
+                    <?php } ?>
+                </table>
+            </div>
+        </div>
+    </section>
     
     <br>
     <footer class="bg-dark text-white">
