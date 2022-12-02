@@ -3,6 +3,10 @@ require_once("includes/DB.php");
 require_once("includes/Functions.php");
 require_once("includes/Sessions.php");
 $SearchQueryParameter = $_GET["id"];
+if($_SESSION['UserID']==null){
+    $_SESSION["ErrorMessage"] = "You are not logged in!";
+    Redirect_to("LoginUser.php");
+}
 ?>
 <html lang="en">
 <head>

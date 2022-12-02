@@ -2,6 +2,14 @@
 require_once("includes/DB.php");
 require_once("includes/Functions.php");
 require_once("includes/Sessions.php");
+if($_SESSION['UserID']==null){
+    $_SESSION["ErrorMessage"] = "You are not logged in!";
+    Redirect_to("LoginUser.php");
+}
+else if($_SESSION['UserID']!=1){
+    $_SESSION["ErrorMessage"] = "You are not allowed to access this page..";
+    Redirect_to("Blog.php");
+}
 ?>
 <html lang="en">
 <head>
@@ -25,7 +33,7 @@ require_once("includes/Sessions.php");
             <div class="collapse navbar-collapse" id="navbarcollapseBMS">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a href="MyProfile.php" class="nav-link"><i class="fa-solid fa-user text-success"></i> My Profile</a>
+                    <a href="LoginUser.php" class="nav-link"><i class="fa-solid fa-user text-success"></i> Login</a>
                 </li>
                 <li class="nav-item">
                     <a href="Dashboard.php" class="nav-link">Dashboard</a>
@@ -34,7 +42,7 @@ require_once("includes/Sessions.php");
                     <a href="Posts.php" class="nav-link">Manage Posts</a>
                 </li>
                 <li class="nav-item">
-                    <a href="Comments.php" class="nav-link">Comments</a>
+                    <a href="RegisterUser.php" class="nav-link">Sign Up</a>
                 </li>
                 <li class="nav-item">
                     <a href="ContactMessages.php" class="nav-link">Messages</a>
@@ -43,12 +51,15 @@ require_once("includes/Sessions.php");
                     <a href="ManageUsers.php" class="nav-link">Manage Users</a>
                 </li>
                 <li class="nav-item">
-                    <a href="Blog.php?page=1" class="nav-link">Read All Blogs</a>
+                    <a href="Blog.php" class="nav-link">Read All Blogs</a>
+                </li>
+                <li class="nav-item">
+                    <a href="ContactUs.php" class="nav-link">Contact Us</a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="Logout.php" class="nav-link text-danger"><i class="fa-solid fa-user-xmark"></i> Log Out</a>
+                    <a href="LogOut.php" class="nav-link text-danger"><i class="fa-solid fa-user-xmark"></i> Log Out</a>
                 </li>
             </ul>
             </div>

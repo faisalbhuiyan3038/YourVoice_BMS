@@ -16,7 +16,7 @@ require_once("includes/Sessions.php");
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <a href="#" class="navbar-brand">YOURVOICE.COM</a>
             <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarcollapseBMS">
@@ -25,21 +25,36 @@ require_once("includes/Sessions.php");
             <div class="collapse navbar-collapse" id="navbarcollapseBMS">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a href="Blog.php" class="nav-link">Home</a>
+                    <a href="LoginUser.php" class="nav-link"><i class="fa-solid fa-user text-success"></i> Login</a>
                 </li>
                 <li class="nav-item">
-                    <a href="RegisterUser.php" class="nav-link">Register User</a>
+                    <a href="Dashboard.php" class="nav-link">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a href="LoginUser.php" class="nav-link">Login</a>
+                    <a href="Posts.php" class="nav-link">Manage Posts</a>
+                </li>
+                <li class="nav-item">
+                    <a href="RegisterUser.php" class="nav-link">Sign Up</a>
+                </li>
+                <li class="nav-item">
+                    <a href="ContactMessages.php" class="nav-link">Messages</a>
+                </li>
+                <li class="nav-item">
+                    <a href="ManageUsers.php" class="nav-link">Manage Users</a>
+                </li>
+                <li class="nav-item">
+                    <a href="Blog.php" class="nav-link">Read All Blogs</a>
                 </li>
                 <li class="nav-item">
                     <a href="ContactUs.php" class="nav-link">Contact Us</a>
                 </li>
+                <li class="nav-item">
+                    <a href="AddNewPost.php" class="nav-link">New Post</a>
+                </li>
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="Logout.php" class="nav-link text-danger"><i class="fa-solid fa-user-xmark"></i> Log Out</a>
+                    <a href="LogOut.php" class="nav-link text-danger"><i class="fa-solid fa-user-xmark"></i> Log Out</a>
                 </li>
             </ul>
             </div>
@@ -51,6 +66,8 @@ require_once("includes/Sessions.php");
             <div class="col-sm-11">
             <h1>See What's trending Below...</h1>
             <h1 class="lead">Sign Up to Write a Blog</h1>
+            <br>
+            <?php echo ErrorMessage(); ?>
             <?php
             global $ConnectingDB;
             $sql = "SELECT * FROM posts ORDER BY id desc";

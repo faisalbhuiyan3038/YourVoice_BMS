@@ -3,6 +3,15 @@ require_once("includes/DB.php");
 require_once("includes/Functions.php");
 require_once("includes/Sessions.php");
 
+if($_SESSION['UserID']==null){
+    $_SESSION["ErrorMessage"] = "You are not logged in!";
+    Redirect_to("LoginUser.php");
+}
+else if($_SESSION['UserID']!=1){
+    $_SESSION["ErrorMessage"] = "You are not allowed to access this page..";
+    Redirect_to("Blog.php");
+}
+
 $SearchQueryParameter = $_GET['id'];
     if(isset($_POST["Submit"])){
                 global $ConnectingDB;

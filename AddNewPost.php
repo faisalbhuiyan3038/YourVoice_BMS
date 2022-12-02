@@ -3,6 +3,11 @@ require_once("includes/DB.php");
 require_once("includes/Functions.php");
 require_once("includes/Sessions.php");
 
+if($_SESSION['UserID']==null){
+    $_SESSION["ErrorMessage"] = "You are not logged in!";
+    Redirect_to("LoginUser.php");
+}
+
     if(isset($_POST["Submit"])){
         $PostTitle = $_POST["PostTitle"];
         $Category = $_POST["Category"];

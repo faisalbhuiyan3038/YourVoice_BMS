@@ -3,6 +3,11 @@ require_once("includes/DB.php");
 require_once("includes/Functions.php");
 require_once("includes/Sessions.php");
 
+if(isset($_SESSION["UserID"])){
+    $_SESSION["ErrorMessage"] = "You are already logged in!!";
+    Redirect_to("Blog.php");
+}
+
     if (isset($_POST['Submit']))
     {
     $Name = $_POST['name'];
@@ -20,9 +25,12 @@ require_once("includes/Sessions.php");
             $stmt->bindValue(":passworD", $Password);
         $stmt->execute();
             $Result = $stmt->rowCount();
+        $Data = $stmt->fetch();
             if($Result==1){
+            $_SESSION["UserID"] = $Data["id"];
+            $_SESSION["UserName"] = $Data["name"];
                 $_SESSION["SuccessMessage"] = "Welcome " . "$Name"." "."! You are Logged In..";
-                Redirect_to("LoginUser.php");
+                Redirect_to("Blog.php");
             }
             else{
                 $_SESSION["ErrorMessage"] = "User Not Found. Please Try Again.";
@@ -53,7 +61,14 @@ require_once("includes/Sessions.php");
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarcollapseBMS">
-            
+            <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                    <a href="RegisterUser.php" class="nav-link">Sign Up</a>
+            </li>
+            <li class="nav-item">
+                    <a href="Blog.php" class="nav-link">See Blog Preview</a>
+            </li>
+            </ul>
             </div>
         </div>
     </nav>
