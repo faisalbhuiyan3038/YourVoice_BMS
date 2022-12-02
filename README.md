@@ -10,4 +10,5 @@
 <li>Click on the Import button at the top right corner and upload the bms.sql file to import the database.</li>
 <li>Switch to your browser and navigate to http://localhost/YOURVOICE_BMS/ URL.</li>
 </ul>
+<br>
 Done!!
