@@ -84,7 +84,7 @@ if(isset($_SESSION["UserID"])){
 
     <section class="container py-2 mb-4">
         <div class="row">
-            <div class="offset-sm-3 col-sm-6" style="min-height:400px">
+            <div class="offset-sm-3 col-sm-6" style="min-height:600px">
                 <div class="card bg-secondary text-light">
                     <div class="card-header">
                         <?php

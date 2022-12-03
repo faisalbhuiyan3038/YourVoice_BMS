@@ -99,7 +99,7 @@ else if($_SESSION['UserID']!=1){
     <section class="container py-2 mb-4">
         <div class="row">
         <?php echo ErrorMessage(); echo SuccessMessage(); ?>
-            <div class="col-lg-12">
+            <div class="col-lg-12" style="min-height:500px">
                 <table class="table table-striped table-hover">
                     <thead class="table-dark">
                     <tr>

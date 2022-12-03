@@ -76,7 +76,7 @@ else if($_SESSION['UserID']!=1){
         </div>
     </header>
     
-    <section class="container py-2 mb-4" style="min-height:60% ;">
+    <section class="container py-2 mb-4" style="min-height:70% ;">
         <div class="row">
         <?php echo ErrorMessage(); echo SuccessMessage(); ?>
             <div class="col-lg-12">

@@ -111,13 +111,13 @@ else if($_SESSION['UserID']!=1){
 
     <section class="container py-2 mb-4">
         <div class="row">
-            <div class="offset-lg-1 col-lg-10" style="min-height:400px;">
+            <div class="offset-lg-1 col-lg-10" style="min-height:600px;">
             <?php
             echo ErrorMessage();
             echo SuccessMessage();
             ?>
                 <form class="" action="Categories.php" method="post">
-                    <div class="card bg-secondary text-light mb-3">
+                    <div class="card bg-secondary text-light mb-3" >
                         <div class="card-header">
                             <h1>Add New Category</h1>
                         </div>
