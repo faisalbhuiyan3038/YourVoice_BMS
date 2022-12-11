@@ -28,9 +28,6 @@ require_once("includes/Sessions.php");
                     <a href="LoginUser.php" class="nav-link"><i class="fa-solid fa-user text-success"></i> Login</a>
                 </li>
                 <li class="nav-item">
-                    <a href="Dashboard.php" class="nav-link">Dashboard</a>
-                </li>
-                <li class="nav-item">
                     <a href="Posts.php" class="nav-link">Manage Posts</a>
                 </li>
                 <li class="nav-item">

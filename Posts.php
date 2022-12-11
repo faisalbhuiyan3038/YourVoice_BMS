@@ -36,9 +36,6 @@ else if($_SESSION['UserID']!=1){
                     <a href="LoginUser.php" class="nav-link"><i class="fa-solid fa-user text-success"></i> Login</a>
                 </li>
                 <li class="nav-item">
-                    <a href="Dashboard.php" class="nav-link">Dashboard</a>
-                </li>
-                <li class="nav-item">
                     <a href="Posts.php" class="nav-link">Manage Posts</a>
                 </li>
                 <li class="nav-item">
@@ -72,7 +69,7 @@ else if($_SESSION['UserID']!=1){
                 <div class="col-md-12 mb-1">
                     <h1><i class="fa-brands fa-blogger-b"></i> Blog Posts</h1>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-4">
                     <a href="AddNewPost.php" class="btn btn-primary mb-1">
                     <i class="fa-solid fa-pen-to-square"></i> Add New Post
                     </a>
@@ -82,16 +79,8 @@ else if($_SESSION['UserID']!=1){
                     <i class="fa-solid fa-folder-plus"></i> Add New Category
                     </a>
                 </div>
-                <div class="col-lg-3">
-                    <a href="Admins.php" class="btn btn-warning mb-1">
-                    <i class="fa-solid fa-user-plus"></i> Add New Admin
-                    </a>
-                </div>
-                <div class="col-lg-3">
-                    <a href="Comments.php" class="btn btn-success mb-1">
-                    <i class="fa-solid fa-check"></i> Approve Comments
-                    </a>
-                </div>
+                
+                
             </div>
         </div>
     </header>

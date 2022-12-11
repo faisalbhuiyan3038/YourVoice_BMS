@@ -130,7 +130,7 @@ else if($_SESSION['UserID']!=1){
                         <br>
                         <div class="row">
                         <div class="col-lg-6 mb-2">
-                            <a href="Dashboard.php" class="btn btn-warning w-100"><i class="fa-solid fa-arrow-left"></i> Back To Dashboard</a>
+                            <a href="Posts.php" class="btn btn-warning w-100"><i class="fa-solid fa-arrow-left"></i> Back To Posts List</a>
                         </div>
                         <div class="col-lg-6">
                             <button type="submit" name="Submit" class="btn btn-success w-100"><i class="fa-solid fa-check"></i> Publish</button>

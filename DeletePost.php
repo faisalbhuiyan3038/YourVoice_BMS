@@ -56,9 +56,6 @@ $SearchQueryParameter = $_GET['id'];
                     <a href="MyProfile.php" class="nav-link"><i class="fa-solid fa-user text-success"></i> My Profile</a>
                 </li>
                 <li class="nav-item">
-                    <a href="Dashboard.php" class="nav-link">Dashboard</a>
-                </li>
-                <li class="nav-item">
                     <a href="Posts.php" class="nav-link">Posts</a>
                 </li>
                 <li class="nav-item">
