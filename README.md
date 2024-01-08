@@ -7,8 +7,11 @@
 <li>Install Xampp and start the Apache and MySQL server.</li>
 <li>Extract the zip file contents and move it to C:\xampp\htdocs folder.</li>
 <li>Go to your browser and browse to http://localhost/phpmyadmin/</li>
+<li>Create new database with the name 'bms'</li>
 <li>Click on the Import button at the top right corner and upload the bms.sql file to import the database.</li>
 <li>Switch to your browser and navigate to http://localhost/YOURVOICE_BMS/ URL.</li>
 </ul>
 <br>
+<h2>Demo</h2>
+<img src="/demo.gif" alt="demoVid" />
 Done!!
