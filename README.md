@@ -2,8 +2,8 @@
 <p>This is a Blog Management System written in HTML, CSS, PHP and JavaScript with the help of Bootstrap.</p>
 
 <h2>Admin Username and Pass (for hosted website) </h2>
-Username - Faisal
-Password - 1921298
+<li>Username - Faisal</li>
+<li>Password - 1921298</li>
 
 <h2>Steps to Use:</h2>
 <ul>
